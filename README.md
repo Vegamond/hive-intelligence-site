@@ -22,6 +22,12 @@ npm run build      # продакшн-збірка
 | Логотип (вектор) | `src/lib/logo.ts`, іконка вкладки — `src/app/icon.svg` |
 | Фото в блоці «Про мене» | покладіть `public/about.jpg` і вкажіть `photo: "/about.jpg"` у `site.ts` |
 
+## Деплой на GitHub Pages
+
+Workflow `.github/workflows/pages.yml` збирає статичну версію і публікує її на `https://vegamond.github.io/hive-intelligence-site/` після кожного пушу в `main`.
+
+Одноразово ввімкнути: **Settings → Pages → Build and deployment → Source: GitHub Actions**. На безкоштовному тарифі GitHub Pages працює лише для публічних репозиторіїв.
+
 ## Деплой на Vercel
 
 1. Увійдіть на [vercel.com](https://vercel.com) через GitHub.
