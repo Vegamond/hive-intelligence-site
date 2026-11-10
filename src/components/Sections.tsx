@@ -4,7 +4,9 @@ import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
 import { about, business, cases, contacts, faq, prices, process, services } from "@/content/site";
-import { CaseArt, ServiceArt } from "./Icons";
+import { CaseArt } from "./Icons";
+import { IsoArt } from "./IsoArt";
+import { Tilt } from "./Tilt";
 import { ButtonLink, Cut, Divider, Eyebrow, H2, HexBullet, HudCorners, Logo, Reveal, Section } from "./ui";
 
 export function Services() {
@@ -17,10 +19,11 @@ export function Services() {
       <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {services.map((s, i) => (
           <Reveal key={s.n} delay={i * 0.08}>
+            <Tilt>
             <Cut>
             <article className="flex h-full flex-col">
-              <div className="flex aspect-[16/9] items-center justify-center border-b border-line bg-ink-2">
-                <ServiceArt icon={s.icon} />
+              <div className="flex aspect-[4/3] items-center justify-center border-b border-line bg-[radial-gradient(ellipse_at_50%_70%,#1c160c,#0b0a09_70%)]">
+                <IsoArt icon={s.icon} />
               </div>
               <div className="flex flex-col gap-3 px-6 pb-8 pt-6">
                 <span className="font-display text-[13px] text-gold">{s.n}</span>
@@ -36,6 +39,7 @@ export function Services() {
               </div>
             </article>
             </Cut>
+            </Tilt>
           </Reveal>
         ))}
       </div>
@@ -75,7 +79,8 @@ export function Business() {
       <div className="grid gap-5 md:grid-cols-3">
         {business.plans.map((p, i) => (
           <Reveal key={p.name} delay={i * 0.08}>
-            <Cut gold={p.featured} className="transition-transform duration-300 hover:-translate-y-1" innerClassName={`flex flex-col gap-4 p-7 ${p.featured ? "bg-[#16150F]!" : "bg-card-2!"}`}>
+            <Tilt max={5}>
+            <Cut gold={p.featured} innerClassName={`flex flex-col gap-4 p-7 ${p.featured ? "bg-[#16150F]!" : "bg-card-2!"}`}>
               {p.featured && (
                 <span className="btn-cut self-start bg-gold px-3 py-0.5 text-xs font-bold tracking-wider text-ink [--c:6px]">ДЛЯ ЗАКЛАДІВ</span>
               )}
@@ -93,6 +98,7 @@ export function Business() {
                 ))}
               </ul>
             </Cut>
+            </Tilt>
           </Reveal>
         ))}
       </div>

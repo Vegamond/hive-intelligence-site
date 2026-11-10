@@ -1,6 +1,8 @@
 "use client";
 
+import { useCallback, useState } from "react";
 import { motion } from "framer-motion";
+import { Emblem3D } from "./Emblem3D";
 import { contacts, hero } from "@/content/site";
 import { LOGO_CONTENT, LOGO_RING } from "@/lib/logo";
 import { HexField } from "./HexField";
@@ -33,7 +35,7 @@ const nodes: [number, number][] = [
   [410, 350],
 ];
 
-function Scheme() {
+function Scheme({ logoHidden = false }: { logoHidden?: boolean }) {
   return (
     <svg
       role="img"
@@ -108,7 +110,7 @@ function Scheme() {
 
       <motion.g
         initial={{ opacity: 0, scale: 0.85 }}
-        animate={{ opacity: 1, scale: 1 }}
+        animate={{ opacity: logoHidden ? 0 : 1, scale: 1 }}
         transition={{ duration: 1, delay: 0.2, ease }}
         style={{ transformOrigin: "260px 198px" }}
       >
@@ -130,6 +132,26 @@ function Scheme() {
         ))}
       </g>
     </svg>
+  );
+}
+
+function SchemeWith3D() {
+  const [ready, setReady] = useState(false);
+  const onReady = useCallback(() => setReady(true), []);
+  return (
+    <div className="relative w-full max-w-[540px]">
+      <Scheme logoHidden={ready} />
+      {/* 3D-емблема стоїть точно на місці плаского логотипа (центр 260,198 у системі 520×480) */}
+      <motion.div
+        className="absolute"
+        style={{ left: "17.3%", top: "5.7%", width: "65.4%", height: "71%" }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: ready ? 1 : 0 }}
+        transition={{ duration: 0.8 }}
+      >
+        <Emblem3D onReady={onReady} />
+      </motion.div>
+    </div>
   );
 }
 
@@ -202,7 +224,7 @@ export function Hero() {
           </motion.ul>
         </div>
         <div className="flex justify-center">
-          <Scheme />
+          <SchemeWith3D />
         </div>
       </div>
     </section>
