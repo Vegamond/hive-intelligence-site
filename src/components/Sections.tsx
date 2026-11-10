@@ -5,19 +5,20 @@ import { AnimatePresence, motion } from "framer-motion";
 import { QRCodeSVG } from "qrcode.react";
 import { about, business, cases, contacts, faq, prices, process, services } from "@/content/site";
 import { CaseArt, ServiceArt } from "./Icons";
-import { ButtonLink, Eyebrow, H2, HexBullet, Logo, Reveal, Section } from "./ui";
+import { ButtonLink, Cut, Divider, Eyebrow, H2, HexBullet, HudCorners, Logo, Reveal, Section } from "./ui";
 
 export function Services() {
   return (
     <Section id="services">
       <Reveal>
-        <Eyebrow>Послуги</Eyebrow>
+        <Eyebrow index="01">Послуги</Eyebrow>
         <H2 className="mb-12 max-w-[46rem]">Чотири напрямки — одна людина, яка відповідає за результат</H2>
       </Reveal>
       <div className="grid gap-5 sm:grid-cols-2 xl:grid-cols-4">
         {services.map((s, i) => (
           <Reveal key={s.n} delay={i * 0.08}>
-            <article className="group flex h-full flex-col border border-line bg-card transition-colors duration-300 hover:border-gold/60">
+            <Cut>
+            <article className="flex h-full flex-col">
               <div className="flex aspect-[16/9] items-center justify-center border-b border-line bg-ink-2">
                 <ServiceArt icon={s.icon} />
               </div>
@@ -34,6 +35,7 @@ export function Services() {
                 </ul>
               </div>
             </article>
+            </Cut>
           </Reveal>
         ))}
       </div>
@@ -46,12 +48,12 @@ export function Business() {
     <Section id="business" alt className="flex flex-col gap-14">
       <div className="grid items-start gap-10 lg:grid-cols-2">
         <Reveal className="flex flex-col gap-5">
-          <Eyebrow>{business.eyebrow}</Eyebrow>
+          <Eyebrow index="02">{business.eyebrow}</Eyebrow>
           <H2>{business.title}</H2>
           <p className="max-w-[34rem] text-muted">{business.lead}</p>
         </Reveal>
         <Reveal delay={0.1}>
-          <div className="relative flex flex-col gap-4 border border-gold p-7 sm:p-8">
+          <Cut gold innerClassName="relative flex flex-col gap-4 p-7 sm:p-8">
             <span className="font-display text-[11px] uppercase tracking-[0.24em] text-gold">Старт співпраці</span>
             <span className="text-2xl font-extrabold text-head">{business.audit.title}</span>
             <ul className="flex flex-col gap-1.5 text-muted">
@@ -66,20 +68,16 @@ export function Business() {
             <ButtonLink href={contacts.telegramHref} className="self-start">
               Записатися на аудит
             </ButtonLink>
-          </div>
+          </Cut>
         </Reveal>
       </div>
 
       <div className="grid gap-5 md:grid-cols-3">
         {business.plans.map((p, i) => (
           <Reveal key={p.name} delay={i * 0.08}>
-            <article
-              className={`relative flex h-full flex-col gap-4 border p-7 transition-transform duration-300 hover:-translate-y-1 ${
-                p.featured ? "border-gold bg-[#16150F]" : "border-line-2 bg-card-2"
-              }`}
-            >
+            <Cut gold={p.featured} className="transition-transform duration-300 hover:-translate-y-1" innerClassName={`flex flex-col gap-4 p-7 ${p.featured ? "bg-[#16150F]!" : "bg-card-2!"}`}>
               {p.featured && (
-                <span className="absolute -top-3 left-6 bg-gold px-2.5 py-0.5 text-xs font-bold tracking-wider text-ink">ДЛЯ ЗАКЛАДІВ</span>
+                <span className="btn-cut self-start bg-gold px-3 py-0.5 text-xs font-bold tracking-wider text-ink [--c:6px]">ДЛЯ ЗАКЛАДІВ</span>
               )}
               <h3 className="text-xl font-bold text-head">{p.name}</h3>
               <span className="-mt-2 text-[0.95rem] text-dim">{p.for}</span>
@@ -94,7 +92,7 @@ export function Business() {
                   </li>
                 ))}
               </ul>
-            </article>
+            </Cut>
           </Reveal>
         ))}
       </div>
@@ -107,13 +105,14 @@ export function Cases() {
   return (
     <Section id="cases">
       <Reveal>
-        <Eyebrow>Кейси</Eyebrow>
+        <Eyebrow index="03">Кейси</Eyebrow>
         <H2 className="mb-12">Що вже працює</H2>
       </Reveal>
       <div className="grid gap-6 md:grid-cols-2">
         {cases.map((c, i) => (
           <Reveal key={c.title} delay={i * 0.1}>
-            <article className="flex h-full flex-col border border-line bg-card">
+            <Cut>
+            <article className="flex h-full flex-col">
               <div className="flex aspect-[2/1] items-center justify-center border-b border-line bg-ink-2">
                 <CaseArt kind={c.diagram} />
               </div>
@@ -123,6 +122,7 @@ export function Cases() {
                 <p className="text-muted">{c.text}</p>
               </div>
             </article>
+            </Cut>
           </Reveal>
         ))}
       </div>
@@ -134,14 +134,14 @@ export function Prices() {
   return (
     <Section id="prices" alt>
       <Reveal>
-        <Eyebrow>Ціни</Eyebrow>
+        <Eyebrow index="04">Ціни</Eyebrow>
         <H2 className="mb-3">Прозорі ціни «від»</H2>
         <p className="mb-10 text-muted">Точну вартість називаю після діагностики — до початку робіт. Запчастини оплачуються окремо.</p>
       </Reveal>
       <div className="grid gap-6 lg:grid-cols-2">
         {prices.map((t, i) => (
           <Reveal key={t.title} delay={i * 0.1}>
-            <div className="border border-line bg-ink">
+            <Cut innerClassName="bg-ink!">
               <table className="w-full border-collapse text-left">
                 <caption className="border-b border-line-2 px-5 py-4 text-left font-bold text-head">{t.title}</caption>
                 <tbody>
@@ -153,7 +153,7 @@ export function Prices() {
                   ))}
                 </tbody>
               </table>
-            </div>
+            </Cut>
           </Reveal>
         ))}
       </div>
@@ -165,7 +165,7 @@ export function Process() {
   return (
     <Section>
       <Reveal>
-        <Eyebrow>Як я працюю</Eyebrow>
+        <Eyebrow index="05">Як я працюю</Eyebrow>
         <H2 className="mb-12">Без сюрпризів у рахунку</H2>
       </Reveal>
       <ol className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
@@ -205,12 +205,11 @@ export function About() {
               <span>Місце для вашого фото за роботою</span>
             </>
           )}
-          <span aria-hidden="true" className="absolute -left-2 -top-2 h-6 w-6 border-l-2 border-t-2 border-gold" />
-          <span aria-hidden="true" className="absolute -bottom-2 -right-2 h-6 w-6 border-b-2 border-r-2 border-gold" />
+          <div className="pointer-events-none absolute -inset-3"><HudCorners size={24} /></div>
         </div>
       </Reveal>
       <Reveal delay={0.1} className="flex flex-col gap-5">
-        <Eyebrow>Про мене</Eyebrow>
+        <Eyebrow index="06">Про мене</Eyebrow>
         <H2>{about.title}</H2>
         <p className="max-w-[36rem] text-muted">{about.text}</p>
         <ul className="flex flex-col gap-2.5">
@@ -229,10 +228,11 @@ export function About() {
 export function Faq() {
   const [open, setOpen] = useState<number | null>(0);
   return (
-    <section id="faq" className="border-t border-line">
+    <section id="faq" className="relative">
+      <Divider />
       <div className="mx-auto max-w-[860px] px-5 py-20 sm:px-6 lg:py-24">
         <Reveal>
-          <Eyebrow>Питання</Eyebrow>
+          <Eyebrow index="07">Питання</Eyebrow>
           <H2 className="mb-10">Часті питання</H2>
         </Reveal>
         <div className="border-t border-line">
@@ -281,7 +281,7 @@ export function Contacts() {
   return (
     <Section id="contacts" alt className="grid items-center gap-12 md:grid-cols-2">
       <Reveal className="flex flex-col gap-5">
-        <Eyebrow>Контакти</Eyebrow>
+        <Eyebrow index="08">Контакти</Eyebrow>
         <H2>Опишіть проблему — відповім і назву ціну</H2>
         <div className="flex flex-col gap-1.5 text-lg">
           <a href={contacts.phoneHref} className="text-[1.7rem] font-bold text-head no-underline hover:text-gold-hi">
@@ -302,10 +302,7 @@ export function Contacts() {
       </Reveal>
       <Reveal delay={0.1} className="hidden justify-center md:flex">
         <div className="relative p-5">
-          <span aria-hidden="true" className="absolute left-0 top-0 h-6 w-6 border-l-[1.5px] border-t-[1.5px] border-gold" />
-          <span aria-hidden="true" className="absolute right-0 top-0 h-6 w-6 border-r-[1.5px] border-t-[1.5px] border-gold" />
-          <span aria-hidden="true" className="absolute bottom-0 left-0 h-6 w-6 border-b-[1.5px] border-l-[1.5px] border-gold" />
-          <span aria-hidden="true" className="absolute bottom-0 right-0 h-6 w-6 border-b-[1.5px] border-r-[1.5px] border-gold" />
+          <HudCorners size={24} />
           <div className="bg-white p-3.5">
             <QRCodeSVG value={contacts.telegramHref} size={180} bgColor="#FFFFFF" fgColor="#0A0A0B" level="M" title={`QR-код: Telegram ${contacts.telegram}`} />
           </div>
@@ -317,7 +314,8 @@ export function Contacts() {
 
 export function Footer() {
   return (
-    <footer className="border-t border-line pb-24 lg:pb-0">
+    <footer className="pb-24 lg:pb-0">
+      <Divider />
       <div className="mx-auto flex max-w-[1200px] flex-wrap items-center justify-between gap-4 px-5 py-8 text-sm text-dim sm:px-6">
         <span className="flex items-center gap-3">
           <Logo className="h-6 w-5" label="" />© {new Date().getFullYear()} Hive Intelligence · {contacts.legal}

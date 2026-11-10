@@ -57,7 +57,118 @@ body {
   50% { background-position: 100% 50%; }
 }
 
+/* ---------- Кібер-Ренесанс: світлотінь ---------- */
+
+.rays {
+  position: absolute;
+  inset: -20% -10% 0 -10%;
+  pointer-events: none;
+  background:
+    conic-gradient(from 180deg at 50% -6%,
+      transparent 0deg 150deg,
+      rgba(230, 192, 98, 0.10) 156deg, transparent 160deg,
+      transparent 166deg, rgba(230, 192, 98, 0.07) 171deg, transparent 176deg,
+      rgba(230, 192, 98, 0.12) 181deg, transparent 186deg,
+      transparent 191deg, rgba(230, 192, 98, 0.06) 195deg, transparent 199deg,
+      rgba(230, 192, 98, 0.09) 204deg, transparent 210deg,
+      transparent 360deg);
+  -webkit-mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 85%);
+  mask-image: linear-gradient(to bottom, #000 0%, #000 35%, transparent 85%);
+  transform-origin: 50% 0%;
+  animation: rays-sway 18s ease-in-out infinite;
+  mix-blend-mode: screen;
+}
+
+@keyframes rays-sway {
+  0%, 100% { transform: rotate(-2.5deg); opacity: 0.75; }
+  50% { transform: rotate(2.5deg); opacity: 1; }
+}
+
+.vignette {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 30%, transparent 40%, rgba(0, 0, 0, 0.65) 100%);
+}
+
+.scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 70;
+  background: repeating-linear-gradient(to bottom, rgba(255, 255, 255, 0.018) 0 1px, transparent 1px 3px);
+}
+
+/* ---------- Скошені кути (як в інтерфейсі гри) ---------- */
+
+.cut-glow { transition: filter 0.35s ease; height: 100%; }
+.cut-glow:hover { filter: drop-shadow(0 0 16px rgba(201, 160, 74, 0.28)); }
+
+.cut-frame {
+  --c: 18px;
+  height: 100%;
+  padding: 1px;
+  background: var(--color-line-2);
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+  transition: background 0.35s ease;
+}
+.cut-glow:hover .cut-frame,
+.cut-frame.is-gold {
+  background: linear-gradient(135deg, #e6c062 0%, #6b5224 45%, #6b5224 55%, #e6c062 100%);
+}
+.cut-inner {
+  height: 100%;
+  background: var(--color-card);
+  clip-path: polygon(calc(var(--c) - 0.4px) 0, 100% 0, 100% calc(100% - var(--c) + 0.4px), calc(100% - var(--c) + 0.4px) 100%, 0 100%, 0 calc(var(--c) - 0.4px));
+}
+
+.btn-cut {
+  --c: 12px;
+  clip-path: polygon(var(--c) 0, 100% 0, 100% calc(100% - var(--c)), calc(100% - var(--c)) 100%, 0 100%, 0 var(--c));
+}
+
+/* ---------- Глітч на заголовках ---------- */
+
+.glitch:hover { animation: glitch 0.45s steps(2, end) 1; }
+@keyframes glitch {
+  0% { text-shadow: 2px 0 rgba(230, 192, 98, 0.7), -2px 0 rgba(255, 120, 40, 0.45); transform: translateX(0); }
+  25% { text-shadow: -3px 0 rgba(230, 192, 98, 0.7), 3px 0 rgba(255, 120, 40, 0.45); transform: translateX(1px); }
+  50% { text-shadow: 1px 0 rgba(230, 192, 98, 0.7), -1px 0 rgba(255, 120, 40, 0.45); transform: translateX(-1px); }
+  100% { text-shadow: none; transform: none; }
+}
+
+/* ---------- Інтро ---------- */
+
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: #050506;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: intro-out 0.5s ease 2.3s forwards; /* запасний вихід, якщо JS не завантажився */
+}
+html[data-intro="seen"] .intro { display: none; }
+@keyframes intro-out { to { opacity: 0; visibility: hidden; } }
+
+.intro-scan {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #e6c062, transparent);
+  box-shadow: 0 0 18px 4px rgba(230, 192, 98, 0.45);
+  animation: intro-scan 1.6s cubic-bezier(0.7, 0, 0.3, 1) forwards;
+}
+@keyframes intro-scan { from { top: 0%; opacity: 1; } to { top: 100%; opacity: 0.2; } }
+
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .foil-text { animation: none; }
+  .foil-text, .rays, .glitch:hover { animation: none; }
+  .intro { display: none; }
+}
+
+@media (max-width: 767px) {
+  .scanlines { display: none; }
 }

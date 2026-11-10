@@ -1,5 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import localFont from "next/font/local";
+import { CursorGlow, Scanlines } from "@/components/Atmosphere";
+import { Intro } from "@/components/Intro";
 import { MotionProvider } from "@/components/MotionProvider";
 import { contacts } from "@/content/site";
 import "./globals.css";
@@ -52,10 +54,19 @@ const jsonLd = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="uk" className={`${manrope.variable} ${michroma.variable}`}>
+    <html lang="uk" className={`${manrope.variable} ${michroma.variable}`} suppressHydrationWarning>
+      <head>
+        {/* інтро показуємо лише раз за візит — позначаємо до першого рендеру, щоб не блимало */}
+        <script dangerouslySetInnerHTML={{ __html: "try{if(sessionStorage.getItem('hive-intro'))document.documentElement.dataset.intro='seen'}catch(e){}" }} />
+      </head>
       <body>
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
-        <MotionProvider>{children}</MotionProvider>
+        <MotionProvider>
+          <Intro />
+          {children}
+          <CursorGlow />
+          <Scanlines />
+        </MotionProvider>
       </body>
     </html>
   );

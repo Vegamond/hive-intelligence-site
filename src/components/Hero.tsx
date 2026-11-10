@@ -3,7 +3,8 @@
 import { motion } from "framer-motion";
 import { contacts, hero } from "@/content/site";
 import { LOGO_CONTENT, LOGO_RING } from "@/lib/logo";
-import { ButtonLink, HexBullet, HoneycombBg } from "./ui";
+import { HexField } from "./HexField";
+import { ButtonLink, HexBullet } from "./ui";
 
 const ease = [0.22, 1, 0.36, 1] as const;
 
@@ -135,7 +136,20 @@ function Scheme() {
 export function Hero() {
   return (
     <section id="top" className="relative overflow-hidden">
-      <HoneycombBg />
+      <HexField />
+      <div aria-hidden="true" className="rays" />
+      <svg aria-hidden="true" viewBox="0 0 600 520" className="pointer-events-none absolute right-[-6%] top-[4%] hidden w-[52%] opacity-[0.12] lg:block">
+        <motion.path
+          d="M300 10 L590 510 L10 510 Z M300 120 L494 455 L106 455 Z"
+          fill="none"
+          stroke="#C9A04A"
+          strokeWidth="1"
+          initial={{ pathLength: 0 }}
+          animate={{ pathLength: 1 }}
+          transition={{ duration: 2.4, delay: 0.6, ease: "easeInOut" }}
+        />
+      </svg>
+      <div aria-hidden="true" className="vignette" />
       <div className="relative mx-auto grid max-w-[1200px] items-center gap-12 px-5 pb-20 pt-10 sm:px-6 lg:grid-cols-[1.05fr_1fr] lg:pb-24 lg:pt-16">
         <div className="flex flex-col gap-6">
           <motion.p
@@ -144,10 +158,10 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease }}
           >
-            {hero.eyebrow}
+            <span className="text-dim">{"// SYS.ONLINE —"}</span> {hero.eyebrow}
           </motion.p>
           <motion.h1
-            className="text-balance text-[2.35rem] font-extrabold leading-[1.06] text-head sm:text-5xl lg:text-[3.8rem]"
+            className="glitch text-balance text-[2.35rem] font-extrabold leading-[1.06] text-head sm:text-5xl lg:text-[3.8rem]"
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.1, ease }}

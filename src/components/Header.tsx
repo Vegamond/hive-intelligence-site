@@ -45,7 +45,7 @@ export function Header() {
           href={contacts.telegramHref}
           target="_blank"
           rel="noopener noreferrer"
-          className="hidden min-h-11 items-center border border-gold px-5 text-[15px] font-semibold text-gold-hi transition-colors hover:bg-gold hover:text-ink lg:inline-flex"
+          className="btn-cut hidden min-h-11 items-center bg-gold px-5 text-[15px] font-bold text-ink transition-shadow hover:shadow-[0_0_20px_rgba(230,192,98,0.45)] lg:inline-flex [--c:9px]"
         >
           Написати в Telegram
         </a>
@@ -91,7 +91,7 @@ export function Header() {
               <a href={contacts.phoneHref} className="flex min-h-[52px] items-center justify-center border border-[#5A5345] text-lg font-semibold text-head">
                 {contacts.phone}
               </a>
-              <a href={contacts.telegramHref} target="_blank" rel="noopener noreferrer" className="flex min-h-[52px] items-center justify-center bg-gold text-lg font-bold text-ink">
+              <a href={contacts.telegramHref} target="_blank" rel="noopener noreferrer" className="btn-cut flex min-h-[52px] items-center justify-center bg-gold text-lg font-bold text-ink">
                 Написати в Telegram
               </a>
             </div>
