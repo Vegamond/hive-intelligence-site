@@ -1,26 +1,63 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+@theme {
+  --color-ink: #0a0a0b;
+  --color-ink-2: #0e0e10;
+  --color-card: #121214;
+  --color-card-2: #141416;
+  --color-line: #24211b;
+  --color-line-2: #2a2720;
+  --color-gold: #c9a04a;
+  --color-gold-hi: #e6c062;
+  --color-gold-lo: #9c7420;
+  --color-text: #d2cbbb;
+  --color-muted: #bdb5a4;
+  --color-dim: #9a9486;
+  --color-head: #f4eedf;
+
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+  --font-display: var(--font-michroma), var(--font-manrope), sans-serif;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
+  -webkit-text-size-adjust: 100%;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-ink);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background: var(--color-gold);
+  color: var(--color-ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-hi);
+  outline-offset: 3px;
+}
+
+.foil-text {
+  background: linear-gradient(115deg, #9c7420 0%, #f0cf78 35%, #b8892b 55%, #e6c062 75%, #9c7420 100%);
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: foil-shine 7s ease-in-out infinite;
+}
+
+@keyframes foil-shine {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .foil-text { animation: none; }
 }
